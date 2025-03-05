@@ -14,11 +14,15 @@ export type GraphicValuesType = {
 export interface SemiDonutCirleProps {
   values: GraphicValuesType[]
   initialText: string
+  graphWidth: number
+  graphHeight: number
 }
 
 export const SemiDonutCirle = ({
   values,
-  initialText 
+  initialText,
+  graphWidth = 600,
+  graphHeight = 300
 }: SemiDonutCirleProps) => {
   const [selectedPercentage, setSelectedPercentage] = useState<number | null>(null)
   const [selectedLabel, setSelectedLabel] = useState<string | null>(null)
@@ -28,11 +32,11 @@ export const SemiDonutCirle = ({
   const svgRef = useRef<SVGSVGElement | null>(null)
 
   // Configurações do gráfico
-  const width = 600
-  const height = 200
+  const width = graphWidth
+  const height = graphHeight // Aumentei a altura para acomodar as labels
   const radius = Math.min(width, height) / 2
   const centerX = width / 2
-  const centerY = height
+  const centerY = height - 50 // Ajuste para alinhar o gráfico na parte inferior
 
   // Cria os arcos para cada porcentagem
   const createArcs = () => {
@@ -137,9 +141,8 @@ export const SemiDonutCirle = ({
             setSelectedLabel(arc.label)
             setSelectedIndex(index)
           }}
-          className={`${styles.segment} ${
-            selectedIndex !== null && selectedIndex !== index ? styles.dimmed : ''
-          }`}
+          className={`${styles.segment} ${selectedIndex !== null && selectedIndex !== index ? styles.dimmed : ''
+            }`}
           style={{ cursor: 'pointer' }}
         />
       ))}
@@ -160,7 +163,7 @@ export const SemiDonutCirle = ({
       <text
         ref={specificRef}
         x={centerX}
-        y={centerY - 50}
+        y={centerY + 30} // Ajuste para posicionar abaixo do gráfico
         textAnchor="middle"
         fontSize="20"
         fill="#000"

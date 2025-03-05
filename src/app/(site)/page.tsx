@@ -78,7 +78,12 @@ export default function Home() {
           </BordedPanel>
           <BordedPanel ref={div3Ref}>
             <p>teste</p>
-            <SemiDonutCirle values={valuesArray} initialText="100%"/>
+            <SemiDonutCirle
+              values={valuesArray}
+              initialText="100%"
+              graphWidth={600}
+              graphHeight={300}
+            />
             <button
               onClick={handleClick}
               style={{ bottom: '20px', left: '50%', transform: 'translateX(-50%)' }}
